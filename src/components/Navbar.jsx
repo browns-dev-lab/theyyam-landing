@@ -32,19 +32,13 @@ const Navbar = () => {
 
   return (
     <nav className="absolute top-0 left-0 right-0 z-40 flex items-center justify-between px-8 py-5">
-      <div className="flex items-center gap-2">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="white"
-          strokeWidth="1.5"
-          className="w-6 h-6"
-        >
-          <polygon points="12,2 2,7 12,12 22,7" />
-          <polyline points="2,17 12,22 22,17" />
-          <polyline points="2,12 12,17 22,12" />
-        </svg>
-        <span className="text-white font-bold tracking-[0.3em] text-sm">
+      <div className="flex items-center gap-3">
+        <img
+          src="/icon-white.png"
+          alt="Theyyam Logo"
+          className="w-14 h-14 object-contain"
+        />
+        <span className="text-white font-semibold tracking-[0.3em] text-md">
           THEYYAM
         </span>
       </div>

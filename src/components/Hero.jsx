@@ -1,6 +1,8 @@
 import { useRef, useCallback, useState } from "react";
 import bg from "../assets/bg.jpeg";
-import mainImg from "../assets/main.png";
+import mainVideo from "../assets/subject.mp4";
+import BlackKeyVideo from "./BlackKeyVideo";
+import stick from "../assets/stick.png";
 
 // ── Google Fonts injected at runtime ─────────────────────────────────────────
 const injectFonts = () => {
@@ -54,39 +56,20 @@ const Hero = () => {
 
   return (
     <>
-      {/* Custom cursor */}
-      <div
-        className="fixed z-[9999] pointer-events-none"
+      {/* Custom Image Cursor */}
+      <img
+        src={stick}
+        alt="cursor"
+        className="fixed z-[9999] pointer-events-none select-none"
         style={{
           left: cursor.x,
           top: cursor.y,
           transform: "translate(-50%, -50%)",
           opacity: cursor.visible ? 1 : 0,
-          transition: "opacity 0.2s",
+          transition: "opacity 0.15s ease-out",
+          width: "60px", // adjust size if needed
         }}
-      >
-        <div
-          className="absolute"
-          style={{
-            width: 36,
-            height: 36,
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        />
-        <div
-          className="rounded-full bg-gray-100"
-          style={{
-            width: 10,
-            height: 10,
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        />
-      </div>
+      />
 
       <section
         className="relative w-full min-h-screen overflow-hidden text-white flex flex-col"
@@ -190,11 +173,9 @@ const Hero = () => {
         </div>
 
         {/* Foreground Theyyam Image */}
-        <img
-          src={mainImg}
-          alt="Theyyam performer"
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[75%] md:h-[80%] object-contain z-40 pointer-events-none"
-        />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-40 pointer-events-none w-[70vw] max-w-[900px]">
+          <BlackKeyVideo src={mainVideo} threshold={40} />
+        </div>
 
         {/* Spotlight overlay */}
         <div

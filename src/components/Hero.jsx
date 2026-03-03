@@ -2,7 +2,7 @@ import { useRef, useCallback, useState, useEffect } from "react";
 import bg from "../assets/bg.jpeg";
 import mainVideo from "../assets/subject.mp4";
 import BlackKeyVideo from "./BlackKeyVideo";
-import fireVideo from "../assets/fire.mp4"; // ← fire.mp4
+import fireVideo from "../assets/fire.mp4";
 
 // ── Google Fonts ──────────────────────────────────────────────────────────────
 const injectFonts = () => {
@@ -16,7 +16,7 @@ const injectFonts = () => {
 };
 injectFonts();
 
-// ── FireCursor — identical pipeline to BlackKeyVideo ─────────────────────────
+// ── FireCursor ────────────────────────────────────────────────────────────────
 const FireCursor = ({ x, y, visible, threshold = 40 }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -33,7 +33,6 @@ const FireCursor = ({ x, y, visible, threshold = 40 }) => {
       if (!running) return;
       if (!video.paused && !video.ended) {
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
         const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const d = frame.data;
         for (let i = 0; i < d.length; i += 4) {
@@ -101,6 +100,18 @@ const Hero = () => {
   const overlayRef = useRef(null);
   const [cursor, setCursor] = useState({ x: -999, y: -999, visible: false });
 
+  // Reset overlay to fully black (close the spotlight)
+  const closeSpotlight = useCallback(() => {
+    if (overlayRef.current) {
+      overlayRef.current.style.background = "rgba(0,0,0,0.97)";
+    }
+  }, []);
+
+  const handleMouseEnter = useCallback(() => {
+    // Keep closed until first mousemove gives us coordinates
+    closeSpotlight();
+  }, [closeSpotlight]);
+
   const handleMouseMove = useCallback((e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -124,10 +135,8 @@ const Hero = () => {
 
   const handleMouseLeave = useCallback(() => {
     setCursor((c) => ({ ...c, visible: false }));
-    if (overlayRef.current) {
-      overlayRef.current.style.background = "rgba(0,0,0,0.97)";
-    }
-  }, []);
+    closeSpotlight(); // ← fully dark when cursor leaves
+  }, [closeSpotlight]);
 
   const stats = [
     { value: "1500+", sub: "Years of history" },
@@ -148,6 +157,7 @@ const Hero = () => {
       <section
         className="relative w-full min-h-screen overflow-hidden text-white"
         style={{ cursor: "none" }}
+        onMouseEnter={handleMouseEnter}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
@@ -237,11 +247,11 @@ const Hero = () => {
           <BlackKeyVideo src={mainVideo} threshold={40} />
         </div>
 
-        {/* ── Spotlight overlay — z-30, between content and foreground video ── */}
+        {/* ── Spotlight overlay — default fully dark, opens on mouse move ── */}
         <div
           ref={overlayRef}
           className="absolute inset-0 z-30 pointer-events-none"
-          style={{ background: "rgba(0,0,0,0.85)" }}
+          style={{ background: "rgba(0,0,0,0.97)" }} // ← starts fully dark
         />
       </section>
     </>

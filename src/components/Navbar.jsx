@@ -38,7 +38,7 @@ const Navbar = () => {
           alt="Theyyam Logo"
           className="w-14 h-14 object-contain"
         />
-        <span className="text-white font-semibold tracking-[0.3em] text-md">
+        <span className="text-gray-300 font-semibold tracking-[0.3em] text-md">
           THEYYAM
         </span>
       </div>
@@ -47,13 +47,13 @@ const Navbar = () => {
           <a
             key={label}
             href="#"
-            className="text-white hover:text-orange-300 transition-colors"
+            className="text-gray-300 hover:text-orange-300 transition-colors"
             aria-label={label}
           >
             <Icon />
           </a>
         ))}
-        <button className="ml-2 border border-white text-white text-xs px-4 py-2 rounded-xs hover:bg-white hover:text-black transition-all tracking-wide">
+        <button className="ml-2 border border-gray-300 text-gray-300 text-xs px-4 py-2 rounded-xs hover:bg-gray-300 hover:text-black transition-all tracking-wide">
           Get to know more
         </button>
       </div>

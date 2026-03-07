@@ -47,7 +47,7 @@ const Navbar = () => {
           <a
             key={label}
             href="#"
-            className="text-gray-300 hover:text-orange-300 transition-colors"
+            className="text-gray-400 hover:text-orange-300 transition-colors"
             aria-label={label}
           >
             <Icon />
